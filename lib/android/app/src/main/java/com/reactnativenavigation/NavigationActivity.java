@@ -52,14 +52,14 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         }
 
         if (navigator == null || navigator.getPipMode() != PIPStates.NATIVE_MOUNTED) {
+            addDefaultSplashLayout();
             navigator = new Navigator(this,
                     new ChildControllersRegistry(),
                     new ModalStack(this),
                     new OverlayManager(),
-                    new RootPresenter(this),
+                    new RootPresenter(),
                     logger
             );
-            addDefaultSplashLayout();
             navigator.bindViews();
             getReactGateway().onActivityCreated(this);
         }
@@ -186,7 +186,7 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
 
     @Override
     public boolean onKeyUp(final int keyCode, final KeyEvent event) {
-        return getReactGateway().onKeyUp(keyCode) || super.onKeyUp(keyCode, event);
+        return getReactGateway().onKeyUp(this, keyCode) || super.onKeyUp(keyCode, event);
     }
 
     public ReactGateway getReactGateway() {

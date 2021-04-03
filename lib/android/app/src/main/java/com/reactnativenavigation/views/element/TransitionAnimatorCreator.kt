@@ -13,7 +13,7 @@ import com.facebook.react.uimanager.ViewGroupManager
 import com.reactnativenavigation.R
 import com.reactnativenavigation.options.AnimationOptions
 import com.reactnativenavigation.options.LayoutAnimation
-import com.reactnativenavigation.options.NestedAnimationsOptions
+import com.reactnativenavigation.options.TransitionAnimationOptions
 import com.reactnativenavigation.utils.ViewTags
 import com.reactnativenavigation.utils.ViewUtils
 import com.reactnativenavigation.viewcontrollers.viewcontroller.ViewController
@@ -35,7 +35,7 @@ open class TransitionAnimatorCreator @JvmOverloads constructor(private val trans
         return createAnimator(fadeAnimation, transitions)
     }
 
-    suspend fun createPIPTransitions(animation: NestedAnimationsOptions, fadeAnimation: AnimationOptions, pipContainer: View, pipScreen: ViewController<*>, callback: CreatorResultCallback) {
+    suspend fun createPIPTransitions(animation: TransitionAnimationOptions, fadeAnimation: AnimationOptions, pipContainer: View, pipScreen: ViewController<*>, callback: CreatorResultCallback) {
         /*val elementTransitions = animation.elementTransitions
         if (!elementTransitions.hasValue()) {
             onAnimatorsCreated.run(TransitionSet())
@@ -60,7 +60,7 @@ open class TransitionAnimatorCreator @JvmOverloads constructor(private val trans
         }
     }
 
-    suspend fun createPIPOutTransitions(animation: NestedAnimationsOptions, fadeAnimation: AnimationOptions, pipContainer: View, pipScreen: ViewController<*>, callback: CreatorResultCallback) {
+    suspend fun createPIPOutTransitions(animation: TransitionAnimationOptions, fadeAnimation: AnimationOptions, pipContainer: View, pipScreen: ViewController<*>, callback: CreatorResultCallback) {
         /*val elementTransitions = animation.elementTransitions
         if (!elementTransitions.hasValue()) {
             onAnimatorsCreated.run(TransitionSet())
@@ -149,8 +149,8 @@ open class TransitionAnimatorCreator @JvmOverloads constructor(private val trans
                 }
     }
 
-    private fun createElementTransitionAnimators(transitions: List<ElementTransition>): List<AnimatorSet> {
-        val animators: MutableList<AnimatorSet> = ArrayList()
+    private fun createElementTransitionAnimators(transitions: List<ElementTransition>): List<Animator> {
+        val animators: MutableList<Animator> = ArrayList()
         for (transition in transitions) {
             animators.add(transition.createAnimators())
         }
